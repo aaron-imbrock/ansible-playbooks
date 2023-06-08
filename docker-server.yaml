@@ -1,0 +1,45 @@
+---
+
+- import_playbook: debian-common.yaml 
+
+- name: Docker Server Setup 
+  serial:
+    - 100%
+  hosts: dockerServer
+  become: yes
+
+  tasks:
+
+    - name: Remove possible conflicting packages
+      ansible.builtin.apt:
+        state: absent
+        purge: true
+        pkg:
+          - docker.io
+          - docker-doc
+          - docker-compose
+          - podman-docker
+          - containerd
+          - runc
+            
+    - name: Create Keyrings Folder
+      ansible.builtin.file:
+        state: directory
+        path: /etc/apt/keyrings
+        owner: root
+        group: root
+        mode: '0755'
+    
+    - name: Find existing Docker GPG apt key
+      ansible.builtin.find:
+          paths: /etc/apt/keyrings
+          patterns:
+            - "*docker*.gpg"
+            - "*docker*.gpg_armored"
+      register: find_results
+        
+    - name: Remove existing Docker GPG apt keys
+      ansible.builtin.file:
+          path: "{{ item.path }}"
+          state: absent
+      with_items: "{{ find_results.files }}"

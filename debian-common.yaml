@@ -1,0 +1,38 @@
+--- 
+- name: Debian OS Updates and base packages
+  serial:
+    - 100%
+  hosts: aws
+  become: yes
+  tasks:
+    - name: Update Base OS
+      ansible.builtin.apt:
+        update_cache: yes
+        upgrade: full
+        autoclean: yes 
+
+- name: Install standard packages
+  serial:
+    - 100%
+  hosts: aws
+  become: yes
+  tasks:
+    - name: Install packages
+      ansible.builtin.apt:
+        pkg:
+          - aptitude
+          - apt-transport-https
+          - build-essential
+          - ca-certificates
+          - curl
+          - debian-archive-keyring
+          - debsig-verify
+          - git
+          - gnupg2
+          - lsb-release
+          - python3-pip
+          - python3-setuptools
+          - software-properties-common
+          - vim
+        state: latest
+        update_cache: true

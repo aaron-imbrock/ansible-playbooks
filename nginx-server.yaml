@@ -1,0 +1,29 @@
+---
+- import_playbook: debian-common.yaml
+
+- name: NGINX Server Setup 
+  serial:
+    - 100%
+  hosts: docker-server
+  become: yes
+  tasks:
+    - name: Install NGINX Prerequisites
+      ansible.builtin.apt:
+        pkg:
+          - ca-certificates
+          - curl
+          - debian-archive-keyring
+          - gnupg2
+          - lsb-release
+        state: latest
+        update_cache: true
+    - name: Ensure NGINX is installed and at latest version 
+      ansible.builtin.apt:
+        pkg:
+          - nginx
+        state: latest
+    - name: Start NGINX
+      ansible.builtin.service:
+        enabled: true
+        name: nginx
+        state: reloaded

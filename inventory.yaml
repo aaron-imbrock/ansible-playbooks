@@ -1,0 +1,11 @@
+aws:
+  hosts:
+    sizza.net:
+      ansible_host: 3.220.204.155
+    vpn.sizza.net:
+      ansible_host: 34.195.114.26
+
+dockerServer:
+  hosts:
+    sizza.net:
+      ansible_host: 3.220.204.155
