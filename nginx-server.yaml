@@ -4,7 +4,9 @@
 - name: NGINX Server Setup 
   serial:
     - 100%
-  hosts: docker-server
+  hosts: 
+    - localhost
+    - docker-server
   become: yes
   tasks:
     - name: Install NGINX Prerequisites
