@@ -21,25 +21,45 @@
           - podman-docker
           - containerd
           - runc
-            
-    - name: Create Keyrings Folder
-      ansible.builtin.file:
-        state: directory
-        path: /etc/apt/keyrings
-        owner: root
-        group: root
-        mode: '0755'
-    
-    - name: Find existing Docker GPG apt key
-      ansible.builtin.find:
-          paths: /etc/apt/keyrings
-          patterns:
-            - "*docker*.gpg"
-            - "*docker*.gpg_armored"
-      register: find_results
-        
-    - name: Remove existing Docker GPG apt keys
-      ansible.builtin.file:
-          path: "{{ item.path }}"
-          state: absent
-      with_items: "{{ find_results.files }}"
+
+
+
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+
+    - name: Add Docker repository to Apt sources
+        ansible.builtin.shell:
+          cmd: |
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+            $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+            sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+    - name: Update Apt
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Install required system packages
+      apt:
+        pkg:
+          - apt-transport-https
+          - gnupg
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+          - docker-ce 
+          - docker-ce-cli 
+          - containerd.io 
+          - docker-buildx-plugin 
+          - docker-compose-plugin
+        state: latest
+        update_cache: true
+
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+  
