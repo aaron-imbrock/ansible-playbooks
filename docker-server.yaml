@@ -22,8 +22,6 @@
           - containerd
           - runc
 
-
-
     - name: Add Docker GPG apt Key
       apt_key:
         url: https://download.docker.com/linux/debian/gpg
@@ -32,9 +30,7 @@
     - name: Add Docker repository to Apt sources
         ansible.builtin.shell:
           cmd: |
-            echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
-            $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-            sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
     - name: Update Apt
       ansible.builtin.apt:
@@ -58,8 +54,3 @@
           - docker-compose-plugin
         state: latest
         update_cache: true
-
-    - name: Install Docker Module for Python
-      pip:
-        name: docker
-  
