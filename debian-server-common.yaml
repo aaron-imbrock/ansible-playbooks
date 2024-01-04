@@ -3,8 +3,7 @@
   serial:
     - 100%
   hosts: 
-    - aws
-    - localhost
+    - all
   become: yes
   tasks:
     - name: Update Base OS
@@ -17,8 +16,7 @@
   serial:
     - 100%
   hosts: 
-    - aws
-    - localhost
+    - all
   become: yes
   tasks:
     - name: Install packages
