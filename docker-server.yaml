@@ -4,7 +4,9 @@
 - name: Docker Server Setup 
   serial:
     - 100%
-  hosts: dockerServer
+  hosts: 
+    - localhost
+    - dockerServer
   become: yes
 
   tasks:
