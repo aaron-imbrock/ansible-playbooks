@@ -1,5 +1,4 @@
 ---
-- import_playbook: debian-common.yaml
 
 - name: NGINX Server Setup 
   serial:
