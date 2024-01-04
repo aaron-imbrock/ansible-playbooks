@@ -23,7 +23,15 @@ useradd ansible
 
 ## Run Ansible Playbook from URL against Localhost
 
-A combination of `curl` and `ansible-playbook` will do ya:
+Setup Debian Server with basic things:
 ```bash
-curl https://raw.githubusercontent.com/aaron-imbrock/ansible-playbooks/main/debian-server-common.yaml | ansible-playbook -c local -i "127.0.0.1," /dev/stdin
+sudo -u ansible bash -c "curl https://raw.githubusercontent.com/aaron-imbrock/ansible-playbooks/main/debian-server-common.yaml | ansible-playbook -c local -i "127.0.0.1," /dev/stdin"
+```
+Install Docker:
+```
+sudo -u ansible bash -c "curl https://raw.githubusercontent.com/aaron-imbrock/ansible-playbooks/main/docker-server.yaml | ansible-playbook -c local -i "127.0.0.1," /dev/stdin"
+```
+Install NGINX:
+```
+sudo -u ansible bash -c "curl https://raw.githubusercontent.com/aaron-imbrock/ansible-playbooks/main/nginx-server.yaml | ansible-playbook -c local -i "127.0.0.1," /dev/stdin"
 ```
