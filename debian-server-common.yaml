@@ -2,7 +2,9 @@
 - name: Debian OS Updates and base packages
   serial:
     - 100%
-  hosts: aws
+  hosts: 
+    - aws
+    - localhost
   become: yes
   tasks:
     - name: Update Base OS
@@ -14,7 +16,9 @@
 - name: Install standard packages
   serial:
     - 100%
-  hosts: aws
+  hosts: 
+    - aws
+    - localhost
   become: yes
   tasks:
     - name: Install packages
