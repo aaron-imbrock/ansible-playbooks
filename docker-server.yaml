@@ -22,17 +22,19 @@
           - containerd
           - runc
 
-    - name: Add Docker repository to Apt sources
-      ansible.builtin.shell:
-        cmd: |
-          mkdir -p /etc/apt/keyrings && 
-          chmod 0755 /etc/apt/keyrings && 
-          echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
 
-    - name: Update Apt
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+        state: present
+
+    - name: Update Apt Cache
       ansible.builtin.apt:
         update_cache: yes
-        validate_certs: false
 
     - name: Install required system packages
       ansible.builtin.apt:
