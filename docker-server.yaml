@@ -22,11 +22,6 @@
           - containerd
           - runc
 
-    - name: Add Docker GPG apt Key
-      ansible.builtin.apt_key:
-        url: https://download.docker.com/linux/debian/gpg
-        state: present
-
     - name: Add Docker repository to Apt sources
       ansible.builtin.shell:
         cmd: |
