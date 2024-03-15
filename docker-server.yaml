@@ -7,9 +7,9 @@
     - localhost
     - dockerServer
   become: yes
+  gather_facts: yes
 
   tasks:
-
     - name: Remove possible conflicting packages
       ansible.builtin.apt:
         state: absent
@@ -23,27 +23,30 @@
           - runc
 
     - name: Add Docker GPG apt Key
-      apt_key:
+      ansible.builtin.apt_key:
         url: https://download.docker.com/linux/debian/gpg
         state: present
 
     - name: Add Docker repository to Apt sources
-        ansible.builtin.shell:
-          cmd: |
-            echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+      ansible.builtin.shell:
+        cmd: |
+          mkdir -p /etc/apt/keyrings && 
+          chmod 0755 /etc/apt/keyrings && 
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
     - name: Update Apt
       ansible.builtin.apt:
         update_cache: yes
 
     - name: Install required system packages
-      apt:
+      ansible.builtin.apt:
         pkg:
           - apt-transport-https
-          - gnupg
           - ca-certificates
           - curl
           - software-properties-common
+          - gnupg
+          - lsb-release
           - python3-pip
           - virtualenv
           - python3-setuptools
