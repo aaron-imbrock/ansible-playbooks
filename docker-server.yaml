@@ -32,6 +32,7 @@
     - name: Update Apt
       ansible.builtin.apt:
         update_cache: yes
+        validate_certs: false
 
     - name: Install required system packages
       ansible.builtin.apt:
