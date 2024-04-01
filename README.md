@@ -4,7 +4,7 @@
 
 ```bash
 sudo apt update
-sudo apt -y install python3-pip ansible
+sudo apt -y install python3-pip ansible curl
 ```
 
 ## Configure system for playbook run against localhost
