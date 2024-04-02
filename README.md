@@ -18,7 +18,7 @@ EOF'
 ```
 
 ```bash
-adduser ansible
+sudo useradd -r -m -s /bin/bash ansible
 ```
 
 ## Run Ansible Playbook from URL against Localhost
