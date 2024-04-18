@@ -36,5 +36,6 @@
           - python3-setuptools
           - software-properties-common
           - vim
+          - pipx
         state: latest
         update_cache: true
