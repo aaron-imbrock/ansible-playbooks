@@ -48,7 +48,6 @@
     - name: Install required packages
       apt:
         name:
-          - firefox
           - software-properties-common
           - apt-transport-https
           - curl
