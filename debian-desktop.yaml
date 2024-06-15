@@ -91,10 +91,10 @@
         name: pipx
         state: present
 
-    - name: Ensure pipx path is set
-      pipx:
-        ensurepath: yes
+#    - name: Ensure pipx path is set
+#      pipx:
+#        ensurepath: yes
 
-    - name: Install Poetry using pipx
-      pipx:
-        name: poetry
+#   - name: Install Poetry using pipx
+#      pipx:
+#        name: poetry
