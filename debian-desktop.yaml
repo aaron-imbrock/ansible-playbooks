@@ -65,6 +65,7 @@
           - python3-pip
           - ansible
           - rsync
+          - brightnessctl
 #          - nodejs
         state: present
 
