@@ -66,6 +66,10 @@
           - ansible
           - rsync
           - brightnessctl
+#         - obapps          
+#         - obmenu
+#         - lxappearance
+#         - obmenu          
 #          - nodejs
         state: present
 
