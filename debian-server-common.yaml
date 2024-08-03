@@ -38,5 +38,6 @@
           - vim
           - pipx
           - tmux
+          - tree
         state: latest
         update_cache: true
