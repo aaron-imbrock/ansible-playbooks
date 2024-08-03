@@ -38,6 +38,5 @@
           - vim
           - pipx
           - tmux
-          - alacritty
         state: latest
         update_cache: true
