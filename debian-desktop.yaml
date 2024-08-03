@@ -66,6 +66,7 @@
           - ansible
           - rsync
           - brightnessctl
+          - alacritty
 #         - obapps          
 #         - obmenu
 #         - lxappearance
