@@ -18,6 +18,29 @@
           APT::Install-Recommends "0";
           APT::Install-Suggests "0";   
 
+- name: Confirm sudoers.d exists
+  ansible.builtin.file:
+    path: /etc/sudoers.d
+    state: directory
+    mode: '0755'
+
+- name: Create ansible system user
+  ansible.builtin.user:
+    name: ansible
+    shell: /bin/bash
+    system: yes
+    create_home: yes
+    state: present
+
+- name: Configure ansible user to not require password for sudo
+  ansible.builtin.copy:
+    dest: /etc/sudoers.d/10ansible
+    content: |
+      # Ansible User Does Not require password
+      ansible ALL=(ALL:ALL) NOPASSWD: ALL
+    mode: '0644'
+    force: no
+
 # https://wiki.debian.org/Suspend
 - name: Ensure /etc/systemd/sleep.conf.d directory exists
   ansible.builtin.file:
