@@ -3,11 +3,15 @@
   hosts: all
   become: yes
   tasks:
+    - name: Set timezone to UTC
+      ansible.builtin.timezone:
+        name: UTC
+
     - name: Update Base OS
       ansible.builtin.apt:
         update_cache: yes
         upgrade: full
-        autoclean: yes 
+        autoclean: yes
 
     - name: Disable install recommends and suggests
       ansible.builtin.copy:
@@ -20,7 +24,7 @@
       ansible.builtin.file:
         path: /etc/systemd/sleep.conf.d
         state: directory
-        mode: '0755'
+        mode: "0755"
 
     - name: Create nosuspend.conf to disable sleep options
       ansible.builtin.copy:
@@ -31,7 +35,7 @@
           AllowHibernation=no
           AllowSuspendThenHibernate=no
           AllowHybridSleep=no
-        mode: '0644'
+        mode: "0644"
         force: no
 
     - name: Create ansible system user
