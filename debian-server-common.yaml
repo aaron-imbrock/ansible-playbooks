@@ -7,6 +7,13 @@
       ansible.builtin.timezone:
         name: UTC
 
+    - name: Set default search domain to sizza.net
+      ansible.builtin.lineinfile:
+        path: /etc/resolv.conf
+        line: "search sizza.net"
+        create: yes
+        state: present
+
     - name: Update Base OS
       ansible.builtin.apt:
         update_cache: yes
