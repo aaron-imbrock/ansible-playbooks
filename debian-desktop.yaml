@@ -93,15 +93,23 @@
           - pipx
         state: present
 
-    # - name: Install npm packages
-    #   npm:
-    #     name:
-    #       - live-server
-    #       - eslint
-    #     global: yes
+    - name: Install npm packages: eslint, live-server
+      ansible.builtin.shell: npm install --global live-server eslint
+
+    - name: Set alacritty to default terminal
+      ansible.builtin.shell: update-alternatives --set x-terminal-emulator /usr/bin/alacritty
+
+    - name: Set vim to default editor
+      ansible.builtin.shell: update-alternatives --set editor /usr/bin/vim
 
     - name: Clear and regenerate font cache
       ansible.builtin.shell: fc-cache -fv
+      
+    # TODO:
+    # Create this but only for regular users.
+    # 
+    # - name: Install poetry via pipx
+    #   ansible.builtin.shell: pipx install 
 
 ## TODO
 # Come back to, how do we ensure that pipx is in a user's $PATH?
@@ -109,6 +117,3 @@
     #   pipx:
     #     ensurepath: yes
 
-    # - name: Install Poetry using pipx
-    #   pipx:
-    #     name: poetry
