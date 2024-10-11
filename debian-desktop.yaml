@@ -96,7 +96,7 @@
           - brightnessctl
           - alacritty
           - pipx
-          - node
+          # - node
         state: present
     # - name: Install npm packages "eslint", "live server"
     #   ansible.builtin.shell: npm install --global live-server eslint
