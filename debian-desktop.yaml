@@ -103,10 +103,12 @@
     #     name: pipx
     #     state: present
 
-    - name: Ensure pipx path is set
-      pipx:
-        ensurepath: yes
+## TODO
+# Come back to, how do we ensure that pipx is in a user's $PATH?
+    # - name: Ensure pipx path is set
+    #   pipx:
+    #     ensurepath: yes
 
-    - name: Install Poetry using pipx
-      pipx:
-        name: poetry
+    # - name: Install Poetry using pipx
+    #   pipx:
+    #     name: poetry
