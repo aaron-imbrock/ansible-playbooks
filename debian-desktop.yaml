@@ -1,20 +1,31 @@
 ---
-- name: Install necessary packages and repositories
-  hosts: localhost
+- name: Debian OS Updates and base packages
+  hosts: all
   become: yes
-
   tasks:
-    - name: Update apt cache
-      apt:
-        update_cache: yes
+    - name: Set timezone to UTC
+      ansible.builtin.timezone:
+        name: UTC
 
-    - name: Install initial packages
-      apt:
-        name:
-          - software-properties-common
-          - curl
-          - vim
+    - name: Set default search domain to sizza.net
+      ansible.builtin.lineinfile:
+        path: /etc/resolv.conf
+        line: "search sizza.net"
+        create: yes
         state: present
+
+    - name: Disable install recommends and suggests
+      ansible.builtin.copy:
+        dest: /etc/apt/apt.conf.d/80no-install-recommends
+        content: |
+          APT::Install-Recommends "0";
+          APT::Install-Suggests "0";
+          
+    - name: Update Base OS
+      ansible.builtin.apt:
+        update_cache: yes
+        upgrade: full
+        autoclean: yes
 
     - name: Add VSCODE repository key
       apt_key:
@@ -67,6 +78,7 @@
           - rsync
           - brightnessctl
           - alacritty
+          - pipx
 #         - obapps          
 #         - obmenu
 #         - lxappearance
@@ -81,10 +93,10 @@
 #          - eslint
 #        global: yes
 
-#    - name: Clear and regenerate font cache
-#      command: fc-cache -fv
-#      args:
-#        warn: false
+   - name: Clear and regenerate font cache
+     command: fc-cache -fv
+     args:
+       warn: false
 
 #    - name: Verify Inconsolata font is installed
 #      command: fc-list | grep -i consolata
@@ -96,10 +108,10 @@
 #        name: pipx
 #        state: present
 
-#    - name: Ensure pipx path is set
-#      pipx:
-#        ensurepath: yes
+   - name: Ensure pipx path is set
+     pipx:
+       ensurepath: yes
 
-#   - name: Install Poetry using pipx
-#      pipx:
-#        name: poetry
+  - name: Install Poetry using pipx
+     pipx:
+       name: poetry
