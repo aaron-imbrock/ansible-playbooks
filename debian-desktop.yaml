@@ -111,9 +111,8 @@
     # - name: Install poetry via pipx
     #   ansible.builtin.shell: pipx install 
 
-## TODO
-# Come back to, how do we ensure that pipx is in a user's $PATH?
+    ## TODO
+    # Come back to, how do we ensure that pipx is in a user's $PATH?
     # - name: Ensure pipx path is set
     #   pipx:
     #     ensurepath: yes
-
