@@ -21,6 +21,11 @@
           APT::Install-Recommends "0";
           APT::Install-Suggests "0";
           
+    - name: Remove standard /etc/apt/sources.list
+      ansible.builtin.file:
+      path: /etc/apt/sources.list
+      state: absent
+      
     - name: Create "blank" apt/sources.list
       ansible.builtin.copy:
         dest: /etc/apt/sources.list.d/sources.list
@@ -56,10 +61,8 @@
         url: https://download.sublimetext.com/sublimehq-pub.gpg
         state: present
 
-    # - name: Add Node repository setup script
-    #   command: curl -fsSL https://deb.nodesource.com/setup_current.x | bash -
-    #   args:
-    #     warn: false
+    - name: Add Node repository setup script
+      ansible.builtin.shell: curl -fsSL https://deb.nodesource.com/setup_current.x | bash -
 
     - name: Update apt cache after adding repositories
       ansible.builtin.apt:
@@ -98,19 +101,7 @@
     #     global: yes
 
     - name: Clear and regenerate font cache
-      command: fc-cache -fv
-      args:
-        warn: false
-
-    # - name: Verify Inconsolata font is installed
-    #   command: fc-list | grep -i consolata
-    #   args:
-    #     warn: false
-
-    # - name: Install pipx
-    #   ansible.builtin.apt:
-    #     name: pipx
-    #     state: present
+      ansible.builtin.shell: fc-cache -fv
 
 ## TODO
 # Come back to, how do we ensure that pipx is in a user's $PATH?
