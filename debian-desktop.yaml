@@ -26,13 +26,13 @@
         path: /etc/apt/sources.list
         state: absent
       
-    - name: Create "blank" apt/sources.list
+    - name: Create "blank" /etc/apt/sources.list
       ansible.builtin.copy:
         dest: /etc/apt/sources.list
         content: |
           # Contents moved to /etc/apt/sources.list.d/sources.list
           
-    - name: Create apt/sources.list
+    - name: Create /etc/apt/sources.list.d/sources.list
       ansible.builtin.copy:
         dest: /etc/apt/sources.list.d/sources.list
         content: |
