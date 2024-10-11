@@ -23,8 +23,8 @@
           
     - name: Remove standard /etc/apt/sources.list
       ansible.builtin.file:
-      path: /etc/apt/sources.list
-      state: absent
+        path: /etc/apt/sources.list
+        state: absent
       
     - name: Create "blank" apt/sources.list
       ansible.builtin.copy:
