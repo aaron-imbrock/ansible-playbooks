@@ -23,6 +23,10 @@ sudo useradd -r -m -s /bin/bash ansible
 
 ## Run Ansible Playbook from URL against Localhost
 
+Setup Debian Desktop with basic things:
+```bash
+sudo -u ansible bash -c "curl https://raw.githubusercontent.com/aaron-imbrock/ansible-playbooks/refs/heads/main/debian-desktop.yaml | ansible-playbook -c local -i "127.0.0.1," /dev/stdin"
+```
 Setup Debian Server with basic things:
 ```bash
 sudo -u ansible bash -c "curl https://raw.githubusercontent.com/aaron-imbrock/ansible-playbooks/main/debian-server-common.yaml | ansible-playbook -c local -i "127.0.0.1," /dev/stdin"
