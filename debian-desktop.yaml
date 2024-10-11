@@ -93,10 +93,10 @@
 #          - eslint
 #        global: yes
 
-   - name: Clear and regenerate font cache
-     command: fc-cache -fv
-     args:
-       warn: false
+   # - name: Clear and regenerate font cache
+   #   command: fc-cache -fv
+   #   args:
+   #     warn: false
 
 #    - name: Verify Inconsolata font is installed
 #      command: fc-list | grep -i consolata
