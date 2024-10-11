@@ -28,7 +28,7 @@
       
     - name: Create "blank" apt/sources.list
       ansible.builtin.copy:
-        dest: /etc/apt/sources.list.d/sources.list
+        dest: /etc/apt/sources.list
         content: |
           # Contents moved to /etc/apt/sources.list.d/sources.list
           
