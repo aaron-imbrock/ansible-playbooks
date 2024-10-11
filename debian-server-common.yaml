@@ -14,18 +14,20 @@
         create: yes
         state: present
 
-    - name: Update Base OS
-      ansible.builtin.apt:
-        update_cache: yes
-        upgrade: full
-        autoclean: yes
-
     - name: Disable install recommends and suggests
       ansible.builtin.copy:
         dest: /etc/apt/apt.conf.d/80no-install-recommends
         content: |
           APT::Install-Recommends "0";
           APT::Install-Suggests "0";
+          
+    - name: Update Base OS
+      ansible.builtin.apt:
+        update_cache: yes
+        upgrade: full
+        autoclean: yes
+
+
 
     - name: Ensure /etc/systemd/sleep.conf.d directory exists
       ansible.builtin.file:
