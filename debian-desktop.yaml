@@ -102,7 +102,30 @@
     #   ansible.builtin.shell: npm install --global live-server eslint
     - name: Set alacritty to default terminal
       ansible.builtin.shell: update-alternatives --set x-terminal-emulator /usr/bin/alacritty
-    - name: Set vim to default editor
-      ansible.builtin.shell: update-alternatives --set editor /usr/bin/vim
+    - name: Ensure vim is set as the default editor
+      block:
+        - name: Check if vim is installed
+          ansible.builtin.command: which vim
+          register: vim_check
+          changed_when: false
+          failed_when: false
+    
+        - name: Install vim if not present
+          ansible.builtin.apt:
+            name: vim
+            state: present
+          when: vim_check.rc != 0
+    
+        - name: Set vim as an alternative for editor
+          ansible.builtin.alternatives:
+            name: editor
+            path: /usr/bin/vim.basic
+            priority: 100
+    
+        - name: Set vim as the default editor
+          ansible.builtin.alternatives:
+            name: editor
+            path: /usr/bin/vim
+            
     - name: Clear and regenerate font cache
       ansible.builtin.shell: fc-cache -fv
