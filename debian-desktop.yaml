@@ -21,6 +21,20 @@
           APT::Install-Recommends "0";
           APT::Install-Suggests "0";
           
+    - name: Create "blank" apt/sources.list
+      ansible.builtin.copy:
+        dest: /etc/apt/sources.list.d/sources.list
+        content: |
+          # Contents moved to /etc/apt/sources.list.d/sources.list
+          
+    - name: Create apt/sources.list
+      ansible.builtin.copy:
+        dest: /etc/apt/sources.list.d/sources.list
+        content: |
+          deb http://mirrors.wikimedia.org/debian/ bookworm main non-free-firmware contrib
+          deb http://security.debian.org/debian-security bookworm-security main non-free-firmware contrib
+          deb http://mirrors.wikimedia.org/debian/ bookworm-updates main non-free-firmware contrib
+        
     - name: Update Base OS
       ansible.builtin.apt:
         update_cache: yes
