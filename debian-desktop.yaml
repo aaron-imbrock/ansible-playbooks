@@ -26,13 +26,13 @@
         path: /etc/apt/sources.list
         state: absent
       
-    - name: Create "blank" /etc/apt/sources.list
+    - name: Create "blank" apt/sources.list
       ansible.builtin.copy:
         dest: /etc/apt/sources.list
         content: |
           # Contents moved to /etc/apt/sources.list.d/sources.list
           
-    - name: Create /etc/apt/sources.list.d/sources.list
+    - name: Create apt/sources.list
       ansible.builtin.copy:
         dest: /etc/apt/sources.list.d/sources.list
         content: |
@@ -107,12 +107,12 @@
       
     # TODO:
     # Create this but only for regular users.
-    # 
+    #
     # - name: Install poetry via pipx
     #   ansible.builtin.shell: pipx install 
 
     ## TODO
-    # Come back to, how do we ensure that pipx is in a user's $PATH?
+    # how do we ensure that pipx is in a user's $PATH?
     # - name: Ensure pipx path is set
     #   pipx:
     #     ensurepath: yes
