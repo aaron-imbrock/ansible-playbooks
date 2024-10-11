@@ -93,7 +93,7 @@
           - pipx
         state: present
 
-    - name: Install npm packages: eslint, live-server
+    - name: Install npm packages: 'eslint', 'live-server'
       ansible.builtin.shell: npm install --global live-server eslint
 
     - name: Set alacritty to default terminal
