@@ -34,8 +34,12 @@
           deb http://mirrors.wikimedia.org/debian/ bookworm main contrib non-free non-free-firmware 
           deb http://security.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware
           deb http://mirrors.wikimedia.org/debian/ bookworm-updates main contrib non-free non-free-firmware
-          # Debian Backports: 
+          # Debian Backports - https://backports.debian.org/Instructions/
+          # Install
           # apt install -t bookworm-backports <package>
+          # Search
+          # apt search <package>
+          # xdiskusage/stable-backports 1.60-4~bpo12+1 amd64
           deb http://deb.debian.org/debian bookworm-backports main contrib non-free-firmware
     - name: Update Base OS
       ansible.builtin.apt:
