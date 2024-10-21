@@ -36,7 +36,7 @@
           deb http://mirrors.wikimedia.org/debian/ bookworm-updates main contrib non-free non-free-firmware
           # Debian Backports: 
           # apt install -t bookworm-backports <package>
-          deb http://deb.debian.org/debian bookworm-backports main
+          deb http://deb.debian.org/debian bookworm-backports main contrib non-free-firmware
     - name: Update Base OS
       ansible.builtin.apt:
         update_cache: yes
