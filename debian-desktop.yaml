@@ -131,7 +131,10 @@
           APT::Periodic::Unattended-Upgrade "1";
     - name: Unattended Upgrades Dry Run
       ansible.builtin.command:
-      script: /usr/bin/unattended-upgrades --dry-run --debug
+        argv:
+        - /usr/bin/unattended-upgrades
+        - --dry-run
+        - --debug
       register: out
       
     - debug: var=out.stdout_lines
