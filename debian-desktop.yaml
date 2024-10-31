@@ -108,6 +108,33 @@
           - pipx
           # - node
         state: present
+    - name: Install Unattended Upgrades Package
+      ansible.builtin.apt:
+        name:
+          - unattended-upgrades
+          - apt-listchanges
+    - name: Configure Unattended Upgrades
+      ansible.builtin.copy:
+        dest: /etc/apt/apt.conf.d/50unattended-upgrades
+        content: |
+          Unattended-Upgrade::Allowed-Origins {
+          "${distro_id}:${distro_codename}-security";
+          };
+          Unattended-Upgrade::Automatic-Reboot "true";
+          Unattended-Upgrade::Automatic-Reboot-Time "02:00";
+          Unattended-Upgrade::Mail "root";
+    - name: Enable Automatic Updates
+      ansible.builtin.copy:
+        dest: /etc/apt/apt.conf.d/20auto-upgrades
+        content: |
+          APT::Periodic::Update-Package-Lists "1";
+          APT::Periodic::Unattended-Upgrade "1";
+    - name: Unattended Upgrades Dry Run
+      ansible.builtin.command:
+      script: /usr/bin/unattended-upgrades --dry-run --debug
+      register: out
+      
+    - debug: var=out.stdout_lines
     # - name: Install npm packages "eslint", "live server"
     #   ansible.builtin.shell: npm install --global live-server eslint
     - name: Set alacritty to default terminal
