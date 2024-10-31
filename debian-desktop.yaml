@@ -85,6 +85,7 @@
     - name: Install required packages
       ansible.builtin.apt:
         name:
+          - gpg
           - software-properties-common
           - apt-transport-https
           - curl
