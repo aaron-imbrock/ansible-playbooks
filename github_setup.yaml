@@ -3,6 +3,9 @@
   hosts: all
   become: yes
   become_user: aimbrock
+  become_method: sudo
+  vars:
+    ansible_become_flags: "-H -S"  # Ensures proper home directory usage
   tasks:
     - name: Set Git global configs
       git_config:
