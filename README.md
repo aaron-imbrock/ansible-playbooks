@@ -3,14 +3,14 @@
 ## Install Ansible
 
 ```bash
-sudo apt update
-sudo apt-get --no-install-recommends install python3-pip ansible curl sudo
+apt update
+apt-get --no-install-recommends install python3-pip ansible curl sudo
 ```
 
 ## Configure system for playbook run against localhost
 
 ```bash
-sudo bash -c 'cat << EOF >> /etc/sudoers
+bash -c 'cat << EOF >> /etc/sudoers
 # Ansible User Does Not require password
 ansible ALL=(ALL:ALL) NOPASSWD: ALL
 
@@ -18,7 +18,7 @@ EOF'
 ```
 
 ```bash
-sudo useradd -r -m -s /bin/bash ansible
+useradd -r -m -s /bin/bash ansible
 ```
 
 ## Run Ansible Playbook from URL against Localhost
