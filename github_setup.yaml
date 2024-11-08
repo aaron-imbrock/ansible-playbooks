@@ -8,7 +8,7 @@
     ansible_become_flags: "-H"  # Ensures proper home directory usage
   tasks:
     - name: Set Git global configs
-      git_config:
+      community.general.git_config:
         name: "{{ item.name }}"
         scope: global
         value: "{{ item.value }}"
